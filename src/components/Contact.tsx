@@ -23,14 +23,14 @@ const Contact = () => {
                     Get in Touch
                  </motion.h2>
 
-                 <motion.h1
+                 <motion.h2
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.1 }}
                     className="text-6xl md:text-9xl font-syne font-bold mb-10 leading-tight"
                  >
-                     Let's Work <br /> Together
-                 </motion.h1>
+                     Let&apos;s Work <br /> Together
+                 </motion.h2>
 
                  <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}

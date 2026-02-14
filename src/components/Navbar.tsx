@@ -25,11 +25,14 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-10 md:py-8 flex justify-between items-center mix-blend-difference text-white">
+      <a href="#main-content" className="skip-to-content">Skip to content</a>
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-10 md:py-8 flex justify-between items-center mix-blend-difference text-white" role="navigation" aria-label="Main navigation">
         <Link href="/" className="text-xl font-bold font-syne uppercase tracking-wider z-50">
           Ilramdhan.dev
         </Link>
         <button
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
           onClick={toggleMenu}
           className="z-50 flex items-center gap-2 group cursor-pointer"
         >

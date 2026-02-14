@@ -42,9 +42,9 @@ const Preloader = () => {
         >
           {/* Top Section */}
           <div className="flex justify-between items-start w-full">
-            <h1 className="text-xl md:text-2xl font-bold font-syne uppercase tracking-wider">
+            <span className="text-xl md:text-2xl font-bold font-syne uppercase tracking-wider">
               Ilramdhan.dev
-            </h1>
+            </span>
             <p className="text-sm md:text-base font-manrope text-white/70">
               Fullstack Engineering
             </p>

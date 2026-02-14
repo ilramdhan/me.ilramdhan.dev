@@ -28,6 +28,54 @@ h6 {
   font-family: var(--font-syne), sans-serif;
 }
 
+/* Only hide cursor on non-touch devices */
+@media (pointer: fine) {
+  .cursor-none-desktop {
+    cursor: none;
+  }
+  .cursor-none-desktop * {
+    cursor: none;
+  }
+}
+
+/* Subtle grain texture overlay */
+.grain-overlay::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.4;
+}
+
+/* Skip to content link — hidden until focused */
+.skip-to-content {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: black;
+  font-weight: bold;
+  font-size: 0.875rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+.skip-to-content:focus {
+  transform: translateX(-50%) translateY(0);
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
 /* Lenis Recommended CSS */
 html.lenis,
 html.lenis body {
@@ -49,3 +97,4 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
