@@ -1,41 +1,18 @@
 'use client';
 
-import { useEffect } from 'react';
-import Lenis from 'lenis';
-import Preloader from '@/components/Preloader';
-import Navbar from '@/components/Navbar';
-import SequenceScroll from '@/components/SequenceScroll';
-import Projects from '@/components/Projects';
-import About from '@/components/About';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
-import MouseCursor from '@/components/MouseCursor';
-import InfiniteMarquee from '@/components/InfiniteMarquee';
+import { useLenis } from '@/hooks';
+import Preloader from '@/components/layout/Preloader';
+import Navbar from '@/components/layout/Navbar';
+import MouseCursor from '@/components/layout/MouseCursor';
+import Footer from '@/components/layout/Footer';
+import SequenceScroll from '@/components/sections/SequenceScroll';
+import Projects from '@/components/sections/Projects';
+import About from '@/components/sections/About';
+import Contact from '@/components/sections/Contact';
+import InfiniteMarquee from '@/components/ui/InfiniteMarquee';
 
 export default function Home() {
-
-  useEffect(() => {
-    const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 2,
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    return () => {
-        lenis.destroy();
-    }
-  }, []);
+  useLenis();
 
   return (
     <>
