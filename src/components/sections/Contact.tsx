@@ -2,16 +2,14 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import Link from 'next/link';
+import { siteConfig, socialLinks } from '@/data/site';
+import MagneticButton from '@/components/ui/MagneticButton';
 
 const Contact = () => {
-    const whatsappNumber = "+6285723458828"; 
-    const whatsappLink = `https://wa.me/${whatsappNumber}`;
+    const whatsappLink = `https://wa.me/${siteConfig.whatsapp}`;
 
     return (
         <section id="contact" className="relative z-10 bg-black text-white py-32 px-6 md:px-20 overflow-hidden">
-             
-             {/* Background decoration or gradient could go here */}
 
              <div className="container mx-auto relative z-10 flex flex-col items-center justify-center text-center">
                  <motion.h2 
@@ -37,9 +35,11 @@ const Contact = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                  >
-                     <Link 
+                     <MagneticButton
+                        as="a"
                         href={whatsappLink}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="group relative inline-flex items-center justify-center px-12 py-6 overflow-hidden font-manrope font-bold text-white transition-all duration-300 bg-transparent border-2 border-white rounded-full hover:bg-white hover:text-black focus:outline-none"
                      >
                         <span className="text-xl md:text-2xl mr-4 group-hover:scale-110 transition-transform">Say Hello</span>
@@ -48,7 +48,7 @@ const Contact = () => {
                                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
                         </span>
-                     </Link>
+                     </MagneticButton>
                  </motion.div>
 
                  <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-4xl text-left md:text-center">
@@ -59,7 +59,7 @@ const Contact = () => {
                         className="flex flex-col gap-2"
                      >
                          <h4 className="font-syne font-bold text-xl">Email</h4>
-                         <a href="mailto:hello@ilramdhan.dev" className="font-manrope text-gray-400 hover:text-white transition-colors">hello@ilramdhan.dev</a>
+                         <a href={`mailto:${siteConfig.email}`} className="font-manrope text-gray-400 hover:text-white transition-colors">{siteConfig.email}</a>
                      </motion.div>
 
                      <motion.div 
@@ -69,7 +69,7 @@ const Contact = () => {
                         className="flex flex-col gap-2"
                      >
                          <h4 className="font-syne font-bold text-xl">Phone / WhatsApp</h4>
-                         <a href={whatsappLink} className="font-manrope text-gray-400 hover:text-white transition-colors">+62 857 2345 8828</a>
+                         <a href={whatsappLink} className="font-manrope text-gray-400 hover:text-white transition-colors">{siteConfig.whatsapp}</a>
                      </motion.div>
 
                      <motion.div 
@@ -80,9 +80,9 @@ const Contact = () => {
                      >
                          <h4 className="font-syne font-bold text-xl">Socials</h4>
                          <div className="flex gap-4 justify-start md:justify-center font-manrope text-gray-400">
-                             <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-                             <a href="#" className="hover:text-white transition-colors">Instagram</a>
-                             <a href="#" className="hover:text-white transition-colors">Twitter</a>
+                             {socialLinks.map((link) => (
+                                 <a key={link.title} href={link.href} className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer" aria-label={link.ariaLabel}>{link.title}</a>
+                             ))}
                          </div>
                      </motion.div>
                  </div>

@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import Image from 'next/image';
+import LazyImage from '@/components/ui/LazyImage';
+import MagneticButton from '@/components/ui/MagneticButton';
 import { projects } from '@/data/site';
 
 
@@ -20,13 +21,11 @@ const Projects = () => {
                         <h2 className="text-sm font-manrope uppercase tracking-widest text-gray-400 mb-4">Selected Works</h2>
                         <h3 className="text-5xl md:text-8xl font-syne font-bold">Featured Projects</h3>
                     </div>
-                     <motion.button 
-                        className="px-8 py-3 border border-white/20 rounded-full font-manrope hover:bg-white hover:text-black transition-colors"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                     <MagneticButton
+                        className="px-8 py-3 border border-white/20 rounded-full font-manrope hover:bg-white hover:text-black transition-colors cursor-pointer"
                     >
                         View All Projects
-                    </motion.button>
+                    </MagneticButton>
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-10 md:gap-y-20">
@@ -39,11 +38,11 @@ const Projects = () => {
                             className="group relative cursor-pointer"
                         >
                             <div className="relative aspect-[4/3] overflow-hidden rounded-lg mb-6">
-                                <Image 
+                                <LazyImage
                                     src={project.image} 
                                     alt={project.title}
-                                    fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                    sizes="(max-width: 768px) 100vw, 50vw"
                                 />
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
                             </div>

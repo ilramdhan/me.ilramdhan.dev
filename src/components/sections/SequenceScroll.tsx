@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useScroll, useTransform, motion, useMotionValueEvent } from 'motion/react';
 import { siteConfig } from '@/data/site';
+import MagneticButton from '@/components/ui/MagneticButton';
 
 const FRAME_COUNT = 192;
 const INITIAL_BATCH = 30;
@@ -85,12 +86,16 @@ const SequenceScroll = () => {
         return () => { cancelled = true; };
     }, [loadImage]);
 
-    // Render logic
+    // Render logic — handles devicePixelRatio for Retina displays
     const renderFrame = useCallback((index: number) => {
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
         const img = imagesRef.current[index];
         if (!canvas || !ctx || !img) return;
+
+        // Use high-quality image smoothing
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
 
         // "object-fit: cover" logic for Canvas
         const hRatio = canvas.width / img.width;
@@ -118,12 +123,21 @@ const SequenceScroll = () => {
         requestAnimationFrame(() => renderFrame(frameIndex));
     });
 
-    // Resize handler — re-renders current frame
+    // Resize handler — accounts for devicePixelRatio (Retina/HiDPI)
     useEffect(() => {
         const handleResize = () => {
             if (canvasRef.current) {
-                canvasRef.current.width = window.innerWidth;
-                canvasRef.current.height = window.innerHeight;
+                const dpr = window.devicePixelRatio || 1;
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+
+                // Set canvas buffer size to physical pixels
+                canvasRef.current.width = width * dpr;
+                canvasRef.current.height = height * dpr;
+
+                // Scale CSS size to logical pixels
+                canvasRef.current.style.width = width + 'px';
+                canvasRef.current.style.height = height + 'px';
 
                 if (isReady) {
                     renderFrame(currentFrameRef.current);
@@ -213,16 +227,15 @@ const SequenceScroll = () => {
                          <h2 className="text-4xl md:text-7xl font-bold font-syne text-white mb-8">
                              Ready to create something extraordinary?
                          </h2>
-                         <motion.a
+                         <MagneticButton
+                            as="a"
                             href={`https://wa.me/${siteConfig.whatsapp}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-8 py-4 bg-white text-black font-bold font-manrope rounded-full text-lg hover:scale-105 transition-transform inline-block"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
                          >
                              Let&apos;s Work Together
-                         </motion.a>
+                         </MagneticButton>
                     </OverlaySection>
 
                 </div>

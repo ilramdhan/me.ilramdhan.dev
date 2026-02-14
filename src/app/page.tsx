@@ -10,6 +10,7 @@ import Projects from '@/components/sections/Projects';
 import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
 import InfiniteMarquee from '@/components/ui/InfiniteMarquee';
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
 export default function Home() {
   useLenis();
@@ -20,17 +21,24 @@ export default function Home() {
       <Preloader />
       <Navbar />
       <main id="main-content" className="bg-black min-h-screen text-white cursor-none-desktop grain-overlay">
-          <SequenceScroll />
+          <ErrorBoundary>
+            <SequenceScroll />
+          </ErrorBoundary>
 
           <div className="relative z-20 bg-black pb-20 -mt-[100vh]">
-              <Projects />
+              <ErrorBoundary>
+                <Projects />
+              </ErrorBoundary>
               <InfiniteMarquee />
-              <About />
-              <Contact />
+              <ErrorBoundary>
+                <About />
+              </ErrorBoundary>
+              <ErrorBoundary>
+                <Contact />
+              </ErrorBoundary>
               <Footer />
           </div>
       </main>
     </>
   );
 }
-
